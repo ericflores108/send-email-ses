@@ -69,7 +69,7 @@ class Email:
                 },
                 'Subject': {
                     'Charset': 'UTF-8',
-                    'Data': self.subject_text,
+                    'Data': self.subject,
                 },
             },
             Source=self._sender,
