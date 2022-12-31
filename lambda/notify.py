@@ -1,6 +1,6 @@
 import json
 from botocore.exceptions import ClientError
-import Email as Mailer
+from SesMailer import Mailer
 
 
 def send_email(recipient, subject, body):
@@ -16,9 +16,25 @@ def send_email(recipient, subject, body):
     # Display an error if something goes wrong.
     except ClientError as e:
         print(e.response['Error']['Message'])
+        return {
+            "statusCode": 500,
+            "body": e.response['Error']['Message'],
+            "headers": {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+        }
     else:
         print("Email sent! Message ID:"),
         print(response['MessageId'])
+        return {
+            "statusCode": 200,
+            "body": "Email sent! Message ID: {}".format(response['MessageId']),
+            "headers": {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+        }
 
 
 def handler(event, context):

@@ -1,7 +1,7 @@
 import boto3
 
 
-class Email:
+class Mailer:
     def __init__(self, recipient, subject, body):
         """Initialize an Email instance.
 
@@ -26,18 +26,12 @@ class Email:
     @property
     def body_html(self):
         """Return the HTML version of the email body."""
+        body_html = ""
         if isinstance(self.body, str):
             body_html = f"<p>{self.body}</p>"
         else:
             body_html = "<br>".join([f"<p>{line}</p>" for line in self.body])
-        return f"""<html>
-        <head></head>
-        <body>
-          {body_html}
-          <p>Eric Flores</p>
-        </body>
-        </html>
-                    """
+        return f"""<html><head></head><body>{body_html}<p>Eric Flores</p></body></html>"""
 
     @property
     def body_text(self):
