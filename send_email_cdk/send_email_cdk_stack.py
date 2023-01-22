@@ -35,4 +35,4 @@ class SendEmailCdkStack(Stack):
             )
         )
 
-        output(self, 'api', value=notify.function_arn)
+        output(self, 'arn', value=notify.function_arn)
